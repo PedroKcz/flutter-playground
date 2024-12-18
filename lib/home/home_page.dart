@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/counter/counter_page.dart';
+import 'package:hello_world/dice/dice_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -19,7 +21,13 @@ class HomePage extends StatelessWidget {
               onPressed: () => Navigator.of(context).push<void>(
                 CounterPage.route(),
               ),
-              child: const Text('Counter'),
+              child: Text('Counter', style: textTheme.labelLarge),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).push<void>(
+                DicePage.route(),
+              ),
+              child: Text('Dice', style: textTheme.labelLarge),
             ),
           ],
         ),
