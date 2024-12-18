@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 
-class CounterObserver extends BlocObserver {
-  const CounterObserver();
+class HelloWorldBlocObserver extends BlocObserver {
+  const HelloWorldBlocObserver();
 
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
