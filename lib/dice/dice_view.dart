@@ -14,7 +14,7 @@ class _DiceState extends State<DiceView> with SingleTickerProviderStateMixin {
   late Animation<double> _animation;
   int _currentValue = 1;
   int _animatedValue = 1;
-  static const double diceRadius = 8;
+  static const double _diceRadius = 8;
 
   final positions = const [
     Offset(0.5, 0.5), // Center
@@ -78,7 +78,7 @@ class _DiceState extends State<DiceView> with SingleTickerProviderStateMixin {
                         width: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          borderRadius: BorderRadius.circular(diceRadius),
+                          borderRadius: BorderRadius.circular(_diceRadius),
                           boxShadow: const [
                             BoxShadow(color: Colors.black26, blurRadius: 42),
                           ],
@@ -117,10 +117,10 @@ class _DiceState extends State<DiceView> with SingleTickerProviderStateMixin {
           children: activeDots[value]!.map((index) {
             final position = positions[index];
             return Positioned(
-              top: position.dy * 100 - diceRadius,
-              left: position.dx * 100 - diceRadius,
+              top: position.dy * 100 - _diceRadius,
+              left: position.dx * 100 - _diceRadius,
               child: const CircleAvatar(
-                radius: diceRadius,
+                radius: _diceRadius,
                 backgroundColor: Colors.black,
               ),
             );
