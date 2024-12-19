@@ -17,13 +17,14 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(
+            ElevatedButton(
               onPressed: () => Navigator.of(context).push<void>(
                 CounterPage.route(),
               ),
               child: Text('Counter', style: textTheme.labelLarge),
             ),
-            TextButton(
+            const SizedBox(height: 8),
+            ElevatedButton(
               onPressed: () => Navigator.of(context).push<void>(
                 DicePage.route(),
               ),

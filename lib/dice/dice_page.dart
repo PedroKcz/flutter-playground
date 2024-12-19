@@ -12,6 +12,6 @@ class DicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => DiceCubit(), child: const DiceView());
+    return BlocProvider(create: (_) => DiceCubit(), child: DiceView());
   }
 }
