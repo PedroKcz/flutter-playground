@@ -43,11 +43,41 @@ class QuizView extends StatelessWidget {
                     spacing: 16,
                     children: [
                       Text(state.summary),
-                      OutlinedButton(
+                      ...state.questions.map((question) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
+                          children: [
+                            question.hasGuessedCorrectly == true
+                                ? const Icon(
+                                    Icons.check_circle_rounded,
+                                    color: Colors.teal,
+                                  )
+                                : const Icon(
+                                    Icons.close,
+                                    color: Colors.red,
+                                  ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 8,
+                                children: [
+                                  Text('Question: ${question.title}'),
+                                  Text(
+                                    'Correct answer: ${question.correctAnswer}',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      }),
+                      OutlinedButton.icon(
                         key: const Key('retake-quiz'),
                         onPressed: () =>
                             context.read<QuizBloc>().add(const QuizReset()),
-                        child: const Text('Retake quiz'),
+                        label: const Text('Retake quiz'),
+                        icon: const Icon(Icons.refresh),
                       ),
                     ],
                   ),
