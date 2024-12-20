@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_world/quiz/quiz_bloc.dart';
+import 'package:hello_world/quiz/bloc/quiz_bloc.dart';
 import 'package:hello_world/quiz/quiz_view.dart';
 
 class QuizPage extends StatelessWidget {

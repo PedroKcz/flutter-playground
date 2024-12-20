@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hello_world/quiz/question.dart';
-import 'package:hello_world/quiz/quiz_event.dart';
-import 'package:hello_world/quiz/quiz_state.dart';
+import 'package:hello_world/quiz/model/question.dart';
+import 'package:hello_world/quiz/bloc/quiz_event.dart';
+import 'package:hello_world/quiz/bloc/quiz_state.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
   QuizBloc() : super(QuizQuestion(questions.first)) {
@@ -15,13 +15,14 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     Question quizQuestion = (state as QuizQuestion).currentQuestion;
     answeredQuestions.add(
       quizQuestion
-        ..hasGuessedCorrectly = (event.answer ==
-            quizQuestion.answers[quizQuestion.correctAnswerIndex]),
+        ..hasGuessedCorrectly = (event.answer == quizQuestion.correctAnswer),
     );
     emit(
       answeredQuestions.length == questions.length
           ? QuizResult(_buildQuizResult(), answeredQuestions)
-          : QuizQuestion(questions[answeredQuestions.length - 1]),
+          : QuizQuestion(
+              questions[answeredQuestions.length]..answers.shuffle(),
+            ),
     );
   }
 

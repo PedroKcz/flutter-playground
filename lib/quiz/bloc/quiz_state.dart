@@ -1,4 +1,4 @@
-import 'package:hello_world/quiz/question.dart';
+import 'package:hello_world/quiz/model/question.dart';
 
 sealed class QuizState {
   const QuizState();
@@ -8,6 +8,9 @@ final class QuizQuestion extends QuizState {
   const QuizQuestion(this.currentQuestion);
 
   final Question currentQuestion;
+
+  @override
+  String toString() => 'QuizQuestion { question: ${currentQuestion.title} }';
 }
 
 final class QuizResult extends QuizState {
