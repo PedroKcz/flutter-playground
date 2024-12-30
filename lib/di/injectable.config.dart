@@ -11,6 +11,8 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../counter/counter_cubit.dart' as _i799;
+import '../dice/dice_cubit.dart' as _i896;
 import '../quiz/bloc/quiz_bloc.dart' as _i0;
 import '../quiz/repository/quiz_repository.dart' as _i684;
 
@@ -25,6 +27,8 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i896.DiceCubit>(() => _i896.DiceCubit());
+    gh.factory<_i799.CounterCubit>(() => _i799.CounterCubit());
     gh.singleton<_i684.QuizRepository>(() => _i684.QuizRepository());
     gh.factory<_i0.QuizBloc>(() => _i0.QuizBloc(gh<_i684.QuizRepository>()));
     return this;

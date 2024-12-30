@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_world/di/injectable.dart';
 import 'package:hello_world/dice/dice_cubit.dart';
 import 'package:hello_world/dice/dice_view.dart';
 
@@ -12,6 +13,9 @@ class DicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (_) => DiceCubit(), child: DiceView());
+    return BlocProvider(
+      create: (_) => getIt.get<DiceCubit>(),
+      child: DiceView(),
+    );
   }
 }
