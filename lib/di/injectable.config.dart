@@ -11,7 +11,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:hello_world/counter/counter_cubit.dart' as _i629;
 import 'package:hello_world/dice/dice_cubit.dart' as _i84;
-import 'package:hello_world/expense_tracker/bloc/expense_tracker_bloc.dart'
+import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart'
     as _i911;
 import 'package:hello_world/quiz/bloc/quiz_bloc.dart' as _i881;
 import 'package:hello_world/quiz/repository/quiz_repository.dart' as _i847;

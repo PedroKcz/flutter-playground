@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/di/injectable.dart';
-import 'package:hello_world/expense_tracker/bloc/expense_tracker_bloc.dart';
-import 'package:hello_world/expense_tracker/expense_tracker_view.dart';
+import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart';
+import 'package:hello_world/expense_tracker/presentation/dash/expense_tracker_view.dart';
 
 class ExpenseTrackerPage extends StatelessWidget {
   const ExpenseTrackerPage._();
