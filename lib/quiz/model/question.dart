@@ -1,4 +1,6 @@
-class Question {
+import 'package:equatable/equatable.dart';
+
+class Question extends Equatable {
   Question({
     required this.title,
     required this.answers,
@@ -8,7 +10,9 @@ class Question {
   final String title;
   final List<String> answers;
   final String correctAnswer;
-  bool? hasGuessedCorrectly;
+
+  @override
+  List<Object?> get props => [title, answers, correctAnswer];
 }
 
 final List<Question> questions = [

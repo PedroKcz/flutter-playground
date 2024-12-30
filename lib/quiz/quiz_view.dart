@@ -43,12 +43,12 @@ class QuizView extends StatelessWidget {
                     spacing: 16,
                     children: [
                       Text(state.summary),
-                      ...state.questions.map((question) {
+                      ...state.questions.entries.map((answer) {
                         return Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           spacing: 8,
                           children: [
-                            question.hasGuessedCorrectly == true
+                            answer.value == true
                                 ? const Icon(
                                     Icons.check_circle_rounded,
                                     color: Colors.teal,
@@ -62,9 +62,10 @@ class QuizView extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 spacing: 8,
                                 children: [
-                                  Text('Question: ${question.title}'),
+                                  Text('Question: ${answer.key.title}'),
                                   Text(
-                                    'Correct answer: ${question.correctAnswer}',
+                                    'Correct answer: ' +
+                                        answer.key.correctAnswer,
                                   ),
                                 ],
                               ),
