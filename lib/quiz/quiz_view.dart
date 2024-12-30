@@ -14,7 +14,7 @@ class QuizView extends StatelessWidget {
       body: BlocBuilder<QuizBloc, QuizState>(
         builder: (context, state) {
           return Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.only(left: 16, right: 16),
             child: Center(
               child: switch (state) {
                 QuizQuestion() => Column(
@@ -38,49 +38,53 @@ class QuizView extends StatelessWidget {
                       ),
                     ],
                   ),
-                QuizResult() => Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    spacing: 16,
-                    children: [
-                      Text(state.summary),
-                      ...state.questions.entries.map((answer) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
-                          children: [
-                            answer.value == true
-                                ? const Icon(
-                                    Icons.check_circle_rounded,
-                                    color: Colors.teal,
-                                  )
-                                : const Icon(
-                                    Icons.close,
-                                    color: Colors.red,
-                                  ),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                spacing: 8,
-                                children: [
-                                  Text('Question: ${answer.key.title}'),
-                                  Text(
-                                    'Correct answer: ' +
-                                        answer.key.correctAnswer,
-                                  ),
-                                ],
+                QuizResult() => SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      spacing: 16,
+                      children: [
+                        const SizedBox(height: 8),
+                        Text(state.summary),
+                        ...state.questions.entries.map((answer) {
+                          return Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            spacing: 8,
+                            children: [
+                              answer.value == true
+                                  ? const Icon(
+                                      Icons.check_circle_rounded,
+                                      color: Colors.teal,
+                                    )
+                                  : const Icon(
+                                      Icons.close,
+                                      color: Colors.red,
+                                    ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: 8,
+                                  children: [
+                                    Text('Question: ${answer.key.title}'),
+                                    Text(
+                                      'Correct answer: ' +
+                                          answer.key.correctAnswer,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      }),
-                      OutlinedButton.icon(
-                        key: const Key('retake-quiz'),
-                        onPressed: () =>
-                            context.read<QuizBloc>().add(const QuizReset()),
-                        label: const Text('Retake quiz'),
-                        icon: const Icon(Icons.refresh),
-                      ),
-                    ],
+                            ],
+                          );
+                        }),
+                        OutlinedButton.icon(
+                          key: const Key('retake-quiz'),
+                          onPressed: () =>
+                              context.read<QuizBloc>().add(const QuizReset()),
+                          label: const Text('Retake quiz'),
+                          icon: const Icon(Icons.refresh),
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
                   ),
               },
             ),
