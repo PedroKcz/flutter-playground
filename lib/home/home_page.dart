@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hello_world/counter/counter_page.dart';
 import 'package:hello_world/dice/dice_page.dart';
+import 'package:hello_world/expense_tracker/expense_tracker_page.dart';
 import 'package:hello_world/quiz/quiz_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -37,6 +38,12 @@ class HomePage extends StatelessWidget {
                 QuizPage.route(),
               ),
               child: Text('Quiz', style: textTheme.labelLarge),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).push<void>(
+                ExpenseTrackerPage.route(),
+              ),
+              child: Text('Expense Tracker', style: textTheme.labelLarge),
             ),
           ],
         ),
