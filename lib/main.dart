@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:hello_world/di/injectable.dart';
 import 'package:hello_world/observer/hello_world_bloc_observer.dart';
 import 'package:hello_world/home/home_page.dart';
 
 void main() {
+  configureDependencies();
   EquatableConfig.stringify = true;
   Bloc.observer = const HelloWorldBlocObserver();
   runApp(const MyApp());
