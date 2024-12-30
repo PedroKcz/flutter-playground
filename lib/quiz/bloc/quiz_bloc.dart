@@ -16,7 +16,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
 
   final QuizRepository _quizRepository;
   List<Question> _questions = List.empty();
-  Map<Question, bool> _answeredQuestions = Map();
+  Map<Question, bool> _answeredQuestions = {};
 
   void _onQuestionAnswered(QuestionAnswered event, Emitter<QuizState> emit) {
     Question quizQuestion = (state as QuizQuestion).currentQuestion;
@@ -32,7 +32,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
   }
 
   void _onQuizReset(QuizReset event, Emitter<QuizState> emit) {
-    _answeredQuestions = Map();
+    _answeredQuestions = {};
     emit(QuizQuestion(_questions.first));
   }
 

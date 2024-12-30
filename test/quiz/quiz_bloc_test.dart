@@ -46,9 +46,10 @@ void main() {
         QuizQuestion(questions[1]),
         QuizResult(
           'You got 1 out of 2 questions correctly!',
-          Map()
-            ..[questions.first] = true
-            ..[questions[1]] = false,
+          {
+            questions.first: true,
+            questions[1]: false,
+          },
         ),
         QuizQuestion(questions[0]),
       ],
