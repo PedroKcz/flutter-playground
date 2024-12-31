@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:hello_world/expense_tracker/data/dto/expense_dto.dart';
 import 'package:hello_world/expense_tracker/domain/expenses_repository.dart';
@@ -36,10 +37,11 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
           )
           .map(
             (dto) => Expense(
-              id: dto.id,
               title: dto.title,
               amount: dto.amount,
               date: dto.date,
+              category: dto.category,
+              id: dto.id,
             ),
           )
           .toList();
@@ -85,6 +87,7 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
             title: expense.title,
             amount: expense.amount,
             date: expense.date,
+            category: expense.category,
           ),
         ),
       );
