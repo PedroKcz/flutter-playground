@@ -1,6 +1,3 @@
-# This is dynamic in a monorepo
-bin/internal/engine.version
-
 # Miscellaneous
 *.class
 *.lock
@@ -24,26 +21,6 @@ bin/internal/engine.version
 .project
 .settings/
 .vscode/*
-
-# Flutter repo-specific
-/bin/cache/
-/bin/internal/bootstrap.bat
-/bin/internal/bootstrap.sh
-/bin/mingit/
-/dev/benchmarks/mega_gallery/
-/dev/bots/.recipe_deps
-/dev/bots/android_tools/
-/dev/devicelab/ABresults*.json
-/dev/docs/doc/
-/dev/docs/api_docs.zip
-/dev/docs/flutter.docs.zip
-/dev/docs/lib/
-/dev/docs/pubspec.yaml
-/dev/integration_tests/**/xcuserdata
-/dev/integration_tests/**/Pods
-/packages/flutter/coverage/
-version
-analysis_benchmark.json
 
 # packages file containing multi-root paths
 .packages.generated
@@ -138,11 +115,3 @@ app.*.symbols
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
-
-# Monorepo
-.cipd
-.gclient
-.gclient_entries
-.python-version
-.gclient_previous_custom_vars
-.gclient_previous_sync_commits
