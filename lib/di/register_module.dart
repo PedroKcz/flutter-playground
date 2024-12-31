@@ -3,5 +3,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 @module
 abstract class RegisterModule {
-  Future<SharedPreferences> get prefs => SharedPreferences.getInstance();
+  @preResolve
+  Future<SharedPreferences> get prefs async => SharedPreferences.getInstance();
 }

@@ -5,8 +5,9 @@ import 'package:hello_world/di/injectable.dart';
 import 'package:hello_world/observer/hello_world_bloc_observer.dart';
 import 'package:hello_world/home/home_page.dart';
 
-void main() {
-  configureDependencies();
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   EquatableConfig.stringify = true;
   Bloc.observer = const HelloWorldBlocObserver();
   runApp(const MyApp());

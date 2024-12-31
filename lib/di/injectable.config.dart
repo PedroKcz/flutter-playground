@@ -25,10 +25,10 @@ import 'package:shared_preferences/shared_preferences.dart' as _i460;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(
       this,
       environment,
@@ -37,15 +37,17 @@ extension GetItInjectableX on _i174.GetIt {
     final registerModule = _$RegisterModule();
     gh.factory<_i84.DiceCubit>(() => _i84.DiceCubit());
     gh.factory<_i629.CounterCubit>(() => _i629.CounterCubit());
-    gh.factoryAsync<_i460.SharedPreferences>(() => registerModule.prefs);
+    await gh.factoryAsync<_i460.SharedPreferences>(
+      () => registerModule.prefs,
+      preResolve: true,
+    );
     gh.singleton<_i847.QuizRepository>(() => _i847.QuizRepository());
-    gh.singletonAsync<_i906.ExpensesRepository>(() async =>
-        _i323.ExpensesRepositoryImpl(
-            prefs: await getAsync<_i460.SharedPreferences>()));
+    gh.singleton<_i906.ExpensesRepository>(() =>
+        _i323.ExpensesRepositoryImpl(prefs: gh<_i460.SharedPreferences>()));
     gh.factory<_i881.QuizBloc>(
         () => _i881.QuizBloc(gh<_i847.QuizRepository>()));
-    gh.factoryAsync<_i215.ExpenseTrackerBloc>(() async =>
-        _i215.ExpenseTrackerBloc(await getAsync<_i906.ExpensesRepository>()));
+    gh.factory<_i215.ExpenseTrackerBloc>(
+        () => _i215.ExpenseTrackerBloc(gh<_i906.ExpensesRepository>()));
     return this;
   }
 }
