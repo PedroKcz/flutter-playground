@@ -17,6 +17,6 @@ jobs:
         with:
           flutter-version: 3.27.1
       - name: Analyze project source
-        run: dart analyze
+        run: flutter analyze
       - name: Run tests
         run: flutter test
