@@ -37,7 +37,6 @@ extension GetItInjectableX on _i174.GetIt {
     final registerModule = _$RegisterModule();
     gh.factory<_i84.DiceCubit>(() => _i84.DiceCubit());
     gh.factory<_i629.CounterCubit>(() => _i629.CounterCubit());
-    gh.factory<_i215.ExpenseTrackerBloc>(() => _i215.ExpenseTrackerBloc());
     gh.factoryAsync<_i460.SharedPreferences>(() => registerModule.prefs);
     gh.singleton<_i847.QuizRepository>(() => _i847.QuizRepository());
     gh.singletonAsync<_i906.ExpensesRepository>(() async =>
@@ -45,6 +44,8 @@ extension GetItInjectableX on _i174.GetIt {
             prefs: await getAsync<_i460.SharedPreferences>()));
     gh.factory<_i881.QuizBloc>(
         () => _i881.QuizBloc(gh<_i847.QuizRepository>()));
+    gh.factoryAsync<_i215.ExpenseTrackerBloc>(() async =>
+        _i215.ExpenseTrackerBloc(await getAsync<_i906.ExpensesRepository>()));
     return this;
   }
 }

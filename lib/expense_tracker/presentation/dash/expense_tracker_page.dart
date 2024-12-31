@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/di/injectable.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart';
+import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_event.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/expense_tracker_view.dart';
 
 class ExpenseTrackerPage extends StatelessWidget {
@@ -14,7 +15,7 @@ class ExpenseTrackerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => getIt.get<ExpenseTrackerBloc>(),
+      create: (_) => getIt.get<ExpenseTrackerBloc>()..add(const FindExpense()),
       child: const ExpenseTrackerView(),
     );
   }
