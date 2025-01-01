@@ -3,16 +3,12 @@ updates:
   - package-ecosystem: "pub"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: "gradle"
     directory: "/android"
     schedule:
-      interval: "daily"
+      interval: "weekly"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: "daily"
-  - package-ecosystem: "bundler"
-    directory: "/ios"
-    schedule:
-      interval: "daily"
+      interval: "weekly"
