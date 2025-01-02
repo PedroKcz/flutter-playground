@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_event.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_state.dart';
+import 'package:hello_world/expense_tracker/presentation/dash/widget/expense_item.dart';
 
 class ExpenseTrackerView extends StatelessWidget {
   const ExpenseTrackerView({super.key});
@@ -15,7 +16,7 @@ class ExpenseTrackerView extends StatelessWidget {
         builder: (context, state) {
           switch (state) {
             case LoadingState():
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator.adaptive());
             case ExpensesState():
               return Column(
                 children: [
@@ -23,8 +24,13 @@ class ExpenseTrackerView extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                       itemCount: state.expenses.length,
-                      itemBuilder: (_, index) =>
-                          Text(state.expenses[index].title),
+                      itemBuilder: (_, index) => Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 16,
+                        ),
+                        child: ExpenseItem(state.expenses[index]),
+                      ),
                     ),
                   ),
                 ],
