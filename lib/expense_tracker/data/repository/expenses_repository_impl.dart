@@ -27,7 +27,7 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
   void _init() {
     final expensesJson = _getValue(_expensesKey);
     if (expensesJson != null) {
-      final expenses = List<Map<dynamic, dynamic>>.from(
+      final List<Expense> expenses = List<Map<dynamic, dynamic>>.from(
         json.decode(expensesJson) as List,
       )
           .map(
@@ -80,15 +80,17 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
   }
 
   String encodeExpenses(List<Expense> expenses) => json.encode(
-        expenses.map(
-          (expense) => ExpenseDto(
-            id: expense.id,
-            title: expense.title,
-            amount: expense.amount,
-            date: expense.date,
-            category: expense.category,
-          ),
-        ),
+        expenses
+            .map(
+              (expense) => ExpenseDto(
+                id: expense.id,
+                title: expense.title,
+                amount: expense.amount,
+                date: expense.date,
+                category: expense.category,
+              ),
+            )
+            .toList(),
       );
 
   @override
