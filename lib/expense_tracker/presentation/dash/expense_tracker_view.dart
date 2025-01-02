@@ -22,13 +22,12 @@ class ExpenseTrackerView extends StatelessWidget {
                 children: [
                   const Text('Chart'),
                   Expanded(
-                    child: ListView.builder(
+                    child: ListView.separated(
                       itemCount: state.expenses.length,
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
                       itemBuilder: (_, index) => Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8,
-                          horizontal: 16,
-                        ),
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: ExpenseItem(state.expenses[index]),
                       ),
                     ),
@@ -53,6 +52,11 @@ class ExpenseTrackerView extends StatelessWidget {
               );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        heroTag: const Key('add_expense'),
+        child: const Icon(Icons.add),
+        onPressed: () => {},
       ),
     );
   }
