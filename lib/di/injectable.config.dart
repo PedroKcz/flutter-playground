@@ -16,6 +16,8 @@ import 'package:hello_world/expense_tracker/data/repository/expenses_repository_
     as _i323;
 import 'package:hello_world/expense_tracker/domain/expenses_repository.dart'
     as _i906;
+import 'package:hello_world/expense_tracker/presentation/create/bloc/create_expense_bloc.dart'
+    as _i589;
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart'
     as _i215;
 import 'package:hello_world/quiz/bloc/quiz_bloc.dart' as _i881;
@@ -35,12 +37,12 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     final registerModule = _$RegisterModule();
-    gh.factory<_i84.DiceCubit>(() => _i84.DiceCubit());
-    gh.factory<_i629.CounterCubit>(() => _i629.CounterCubit());
     await gh.factoryAsync<_i460.SharedPreferences>(
       () => registerModule.prefs,
       preResolve: true,
     );
+    gh.factory<_i84.DiceCubit>(() => _i84.DiceCubit());
+    gh.factory<_i629.CounterCubit>(() => _i629.CounterCubit());
     gh.singleton<_i847.QuizRepository>(() => _i847.QuizRepository());
     gh.singleton<_i906.ExpensesRepository>(() =>
         _i323.ExpensesRepositoryImpl(prefs: gh<_i460.SharedPreferences>()));
@@ -48,6 +50,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i881.QuizBloc(gh<_i847.QuizRepository>()));
     gh.factory<_i215.ExpenseTrackerBloc>(
         () => _i215.ExpenseTrackerBloc(gh<_i906.ExpensesRepository>()));
+    gh.factory<_i589.CreateExpenseBloc>(
+        () => _i589.CreateExpenseBloc(gh<_i906.ExpensesRepository>()));
     return this;
   }
 }

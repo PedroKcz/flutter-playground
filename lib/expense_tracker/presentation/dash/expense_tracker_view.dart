@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_world/expense_tracker/presentation/create/create_expense_modal.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_event.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_state.dart';
@@ -68,7 +69,7 @@ class ExpenseTrackerView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         heroTag: const Key('add_expense'),
         child: const Icon(Icons.add),
-        onPressed: () => {},
+        onPressed: () => CreateExpenseModal().showAsModal(context),
       ),
     );
   }

@@ -19,6 +19,20 @@ class Expense extends Equatable {
   final DateTime date;
   final ExpenseCategory category;
 
+  Expense copyWith({
+    String? title,
+    double? amount,
+    DateTime? date,
+    ExpenseCategory? category,
+  }) {
+    return Expense(
+      title: title ?? this.title,
+      amount: amount ?? this.amount,
+      date: date ?? this.date,
+      category: category ?? this.category,
+    );
+  }
+
   @override
   List<Object?> get props => [id, title, amount, date, category];
 }
