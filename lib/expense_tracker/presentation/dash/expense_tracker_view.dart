@@ -18,18 +18,30 @@ class ExpenseTrackerView extends StatelessWidget {
             case LoadingState():
               return const Center(child: CircularProgressIndicator.adaptive());
             case ExpensesState():
-              return Column(
-                children: [
-                  const Text('Chart'),
-                  Expanded(
-                    child: ListView.separated(
-                      itemCount: state.expenses.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 8),
-                      itemBuilder: (_, index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: ExpenseItem(state.expenses[index]),
-                      ),
+              return CustomScrollView(
+                slivers: [
+                  const SliverToBoxAdapter(
+                    child: SizedBox(
+                      child: Center(child: Text('Chart')),
+                      height: 200,
+                    ),
+                  ),
+                  const SliverAppBar(
+                    pinned: true,
+                    automaticallyImplyLeading: false,
+                    flexibleSpace: FlexibleSpaceBar(
+                      title: const Text('Expenses'),
+                      titlePadding: EdgeInsets.all(16),
+                      centerTitle: false,
+                    ),
+                  ),
+                  SliverList.separated(
+                    itemCount: state.expenses.length,
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
+                    itemBuilder: (_, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: ExpenseItem(state.expenses[index]),
                     ),
                   ),
                 ],
