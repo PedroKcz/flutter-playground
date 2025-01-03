@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:hello_world/expense_tracker/domain/model/expense.dart';
 
 sealed class ExpenseTrackerEvent extends Equatable {
   const ExpenseTrackerEvent();
@@ -18,4 +19,14 @@ class DeleteExpense extends ExpenseTrackerEvent {
 
   @override
   List<Object?> get props => [id];
+}
+
+
+class AddExpense extends ExpenseTrackerEvent {
+  const AddExpense(this.expense);
+
+  final Expense expense;
+
+  @override
+  List<Object?> get props => [expense];
 }

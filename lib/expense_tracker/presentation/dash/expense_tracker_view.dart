@@ -54,13 +54,30 @@ class ExpenseTrackerView extends StatelessWidget {
                     itemCount: state.expenses.length,
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 8),
-                    itemBuilder: (_, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Dismissible(
-                        key: ValueKey(index),
-                        onDismissed: (_) => context
+                    itemBuilder: (_, index) => Dismissible(
+                      key: ValueKey(state.expenses[index].id),
+                      background: Container(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                      onDismissed: (_) {
+                        context
                             .read<ExpenseTrackerBloc>()
-                            .add(DeleteExpense(state.expenses[index].id)),
+                            .add(DeleteExpense(state.expenses[index].id));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text('Expense deleted'),
+                            duration: const Duration(seconds: 3),
+                            action: SnackBarAction(
+                              label: 'Undo',
+                              onPressed: () => context
+                                  .read<ExpenseTrackerBloc>()
+                                  .add(AddExpense(state.expenses[index])),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: ExpenseItem(state.expenses[index]),
                       ),
                     ),

@@ -11,6 +11,7 @@ class ExpenseTrackerBloc
   ExpenseTrackerBloc(this._repository) : super(const LoadingState()) {
     on<FindExpense>(_observeExpenses);
     on<DeleteExpense>(_deleteExpense);
+    on<AddExpense>(_addExpense);
   }
 
   final ExpensesRepository _repository;
@@ -31,5 +32,9 @@ class ExpenseTrackerBloc
 
   void _deleteExpense(DeleteExpense event, Emitter<ExpenseTrackerState> emit) {
     _repository.deleteExpense(event.id);
+  }
+
+  void _addExpense(AddExpense event, Emitter<ExpenseTrackerState> emit) {
+    _repository.saveExpense(event.expense);
   }
 }
