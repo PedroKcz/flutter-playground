@@ -10,6 +10,7 @@ class ExpenseTrackerBloc
     extends Bloc<ExpenseTrackerEvent, ExpenseTrackerState> {
   ExpenseTrackerBloc(this._repository) : super(const LoadingState()) {
     on<FindExpense>(_observeExpenses);
+    on<DeleteExpense>(_deleteExpense);
   }
 
   final ExpensesRepository _repository;
@@ -22,8 +23,13 @@ class ExpenseTrackerBloc
 
     await emit.forEach<List<Expense>>(
       _repository.observeExpenses(),
-      onData: (expenses) => ExpensesState(expenses),
+      onData: (expenses) =>
+          ExpensesState(expenses..sort((a, b) => a.date.compareTo(b.date))),
       onError: (_, __) => const ErrorState(),
     );
+  }
+
+  void _deleteExpense(DeleteExpense event, Emitter<ExpenseTrackerState> emit) {
+    _repository.deleteExpense(event.id);
   }
 }

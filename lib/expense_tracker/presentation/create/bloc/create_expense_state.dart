@@ -40,5 +40,5 @@ class CreateExpenseState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [expense, isLoading, isExpenseSaved];
+  List<Object?> get props => [expense, isLoading, isExpenseSaved, showError];
 }

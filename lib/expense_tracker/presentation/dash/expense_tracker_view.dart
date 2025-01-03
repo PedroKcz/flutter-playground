@@ -42,7 +42,13 @@ class ExpenseTrackerView extends StatelessWidget {
                         const SizedBox(height: 8),
                     itemBuilder: (_, index) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: ExpenseItem(state.expenses[index]),
+                      child: Dismissible(
+                        key: ValueKey(index),
+                        onDismissed: (_) => context
+                            .read<ExpenseTrackerBloc>()
+                            .add(DeleteExpense(state.expenses[index].id)),
+                        child: ExpenseItem(state.expenses[index]),
+                      ),
                     ),
                   ),
                 ],

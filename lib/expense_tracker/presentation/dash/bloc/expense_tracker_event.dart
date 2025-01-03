@@ -10,3 +10,12 @@ class FindExpense extends ExpenseTrackerEvent {
   @override
   List<Object?> get props => [];
 }
+
+class DeleteExpense extends ExpenseTrackerEvent {
+  const DeleteExpense(this.id);
+
+  final String id;
+
+  @override
+  List<Object?> get props => [id];
+}
