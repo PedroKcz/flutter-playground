@@ -44,13 +44,13 @@ class CreateExpenseBloc extends Bloc<CreateExpenseEvent, CreateExpenseState> {
   }
 
   void _submit(Submit event, Emitter<CreateExpenseState> emit) async {
-    emit(state.copyWith(isLoading: true));
     try {
       assert(state.isSubmitButtonEnabled);
+      emit(state.copyWith(isLoading: true));
       await _repository.saveExpense(state.expense);
+      emit(state.copyWith(isLoading: false, isExpenseSaved: true));
     } catch (_) {
       emit(state.copyWith(isLoading: false, showError: true));
     }
-    emit(state.copyWith(isLoading: false, isExpenseSaved: true));
   }
 }

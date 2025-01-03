@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/di/injectable.dart';
+import 'package:hello_world/expense_tracker/domain/model/expense_category.dart';
 import 'package:hello_world/expense_tracker/presentation/create/bloc/create_expense_bloc.dart';
 import 'package:hello_world/expense_tracker/presentation/create/bloc/create_expense_event.dart';
 import 'package:hello_world/expense_tracker/presentation/create/bloc/create_expense_state.dart';
+import 'package:hello_world/expense_tracker/presentation/dash/widget/expense_extension.dart';
+import 'package:hello_world/extensions/string_extensions.dart';
 
 class CreateExpenseModal extends StatelessWidget {
   CreateExpenseModal({super.key});
@@ -30,14 +33,37 @@ class CreateExpenseModal extends StatelessWidget {
               spacing: 8,
               children: [
                 const Text('Add expense'),
-                TextField(
-                  maxLength: 50,
-                  decoration: const InputDecoration(
-                    labelText: 'Title',
-                  ),
-                  onChanged: (value) => context
-                      .read<CreateExpenseBloc>()
-                      .add(TitleUpdated(title: value)),
+                Row(
+                  spacing: 16,
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        maxLength: 50,
+                        decoration: const InputDecoration(
+                          labelText: 'Title',
+                        ),
+                        onChanged: (value) => context
+                            .read<CreateExpenseBloc>()
+                            .add(TitleUpdated(title: value)),
+                      ),
+                    ),
+                    DropdownButton(
+                      value: state.expense.category,
+                      items: ExpenseCategory.values
+                          .map(
+                            (category) => DropdownMenuItem(
+                              child: Text(category.name.capitalize),
+                              value: category,
+                            ),
+                          )
+                          .toList(),
+                      onChanged: (category) => category != null
+                          ? context
+                              .read<CreateExpenseBloc>()
+                              .add(CategorySelected(category: category))
+                          : null,
+                    ),
+                  ],
                 ),
                 TextField(
                   decoration: const InputDecoration(
@@ -47,28 +73,44 @@ class CreateExpenseModal extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   onChanged: (value) => context
                       .read<CreateExpenseBloc>()
-                      .add(const AmountUpdated(amount: 12.11)),
+                      .add(AmountUpdated(amount: double.tryParse(value) ?? 0)),
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: DropdownButton(
-                        items: List.empty(),
-                        onChanged: (_) => {},
-                      ),
+                      child: Text(state.expense.formattedDate),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
-                      child: OutlinedButton.icon(
-                        label: const Text('Select date'),
-                        icon: const Icon(Icons.calendar_month),
-                        onPressed: () => {},
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton.icon(
+                            label: const Text('Change date'),
+                            icon: const Icon(Icons.calendar_month),
+                            onPressed: () {
+                              final DateTime now = DateTime.now();
+                              showDatePicker(
+                                context: context,
+                                firstDate: DateTime(now.year - 5),
+                                initialDate: state.expense.date,
+                                lastDate: now,
+                              ).then(
+                                (value) => value != null
+                                    ? context
+                                        .read<CreateExpenseBloc>()
+                                        .add(DateSelected(date: value))
+                                    : null,
+                              );
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
                 Center(
-                  child: ElevatedButton(
+                  child: OutlinedButton(
                     onPressed: state.isSubmitButtonEnabled
                         ? () => context
                             .read<CreateExpenseBloc>()
