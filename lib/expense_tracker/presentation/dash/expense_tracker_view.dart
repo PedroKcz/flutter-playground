@@ -27,15 +27,29 @@ class ExpenseTrackerView extends StatelessWidget {
                       height: 200,
                     ),
                   ),
-                  const SliverAppBar(
-                    pinned: true,
-                    automaticallyImplyLeading: false,
-                    flexibleSpace: FlexibleSpaceBar(
-                      title: const Text('Expenses'),
-                      titlePadding: EdgeInsets.all(16),
-                      centerTitle: false,
-                    ),
-                  ),
+                  state.expenses.isEmpty
+                      ? SliverToBoxAdapter(
+                          child: Column(
+                            spacing: 16,
+                            children: [
+                              const Text('No expenses found, try adding one'),
+                              OutlinedButton(
+                                onPressed: () =>
+                                    CreateExpenseModal().showAsModal(context),
+                                child: const Text('Add expense'),
+                              ),
+                            ],
+                          ),
+                        )
+                      : const SliverAppBar(
+                          pinned: true,
+                          automaticallyImplyLeading: false,
+                          flexibleSpace: FlexibleSpaceBar(
+                            title: const Text('Expenses'),
+                            titlePadding: EdgeInsets.all(16),
+                            centerTitle: false,
+                          ),
+                        ),
                   SliverList.separated(
                     itemCount: state.expenses.length,
                     separatorBuilder: (context, index) =>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/di/injectable.dart';
 import 'package:hello_world/expense_tracker/domain/model/expense_category.dart';
@@ -66,14 +67,19 @@ class CreateExpenseModal extends StatelessWidget {
                   ],
                 ),
                 TextField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     prefixText: '\$ ',
                     labelText: 'Amount',
+                    errorText:
+                        state.showError ? 'Please enter a valid amount' : null,
                   ),
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp('[0-9.]')),
+                  ],
                   onChanged: (value) => context
                       .read<CreateExpenseBloc>()
-                      .add(AmountUpdated(amount: double.tryParse(value) ?? 0)),
+                      .add(AmountUpdated(amount: value)),
                 ),
                 Row(
                   children: [

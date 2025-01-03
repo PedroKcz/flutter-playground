@@ -23,8 +23,14 @@ class CreateExpenseBloc extends Bloc<CreateExpenseEvent, CreateExpenseState> {
   }
 
   void _updateAmount(AmountUpdated event, Emitter<CreateExpenseState> emit) {
+    final amount = double.tryParse(event.amount);
     emit(
-      state.copyWith(expense: state.expense.copyWith(amount: event.amount)),
+      state.copyWith(
+        expense: state.expense.copyWith(
+          amount: amount != null ? amount : 0,
+        ),
+        showError: amount == null,
+      ),
     );
   }
 

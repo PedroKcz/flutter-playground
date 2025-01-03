@@ -17,7 +17,7 @@ class TitleUpdated extends CreateExpenseEvent {
 class AmountUpdated extends CreateExpenseEvent {
   const AmountUpdated({required this.amount});
 
-  final double amount;
+  final String amount;
 
   @override
   List<Object?> get props => [amount];

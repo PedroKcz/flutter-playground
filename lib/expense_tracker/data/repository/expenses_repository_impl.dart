@@ -46,7 +46,7 @@ class ExpensesRepositoryImpl extends ExpensesRepository {
           .toList();
       _expensesStreamController.add(expenses);
     } else {
-      _expensesStreamController.add(const []);
+      _expensesStreamController.add(List.empty());
     }
   }
 

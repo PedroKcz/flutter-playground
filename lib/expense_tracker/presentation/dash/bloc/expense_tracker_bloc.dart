@@ -24,7 +24,7 @@ class ExpenseTrackerBloc
     await emit.forEach<List<Expense>>(
       _repository.observeExpenses(),
       onData: (expenses) =>
-          ExpensesState(expenses..sort((a, b) => a.date.compareTo(b.date))),
+          ExpensesState(expenses..sort((a, b) => b.date.compareTo(a.date))),
       onError: (_, __) => const ErrorState(),
     );
   }
