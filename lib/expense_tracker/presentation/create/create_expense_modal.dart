@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hello_world/di/injectable.dart';
@@ -26,7 +27,11 @@ class CreateExpenseModal extends StatelessWidget {
       create: (context) => getIt.get<CreateExpenseBloc>(),
       child: BlocBuilder<CreateExpenseBloc, CreateExpenseState>(
         builder: (context, state) {
-          if (state.isExpenseSaved) Navigator.pop(context);
+          if (state.isExpenseSaved) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.pop(context);
+            });
+          }
           return Padding(
             padding: const EdgeInsets.all(16),
             child: Column(

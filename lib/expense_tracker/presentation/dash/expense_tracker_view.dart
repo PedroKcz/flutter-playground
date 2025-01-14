@@ -1,9 +1,12 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hello_world/expense_tracker/domain/model/expense_category.dart';
 import 'package:hello_world/expense_tracker/presentation/create/create_expense_modal.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_bloc.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_event.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_state.dart';
+import 'package:hello_world/expense_tracker/presentation/dash/widget/expense_extension.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/widget/expense_item.dart';
 
 class ExpenseTrackerView extends StatelessWidget {
@@ -21,9 +24,28 @@ class ExpenseTrackerView extends StatelessWidget {
             case ExpensesState():
               return CustomScrollView(
                 slivers: [
-                  const SliverToBoxAdapter(
+                  SliverToBoxAdapter(
                     child: SizedBox(
-                      child: Center(child: Text('Chart')),
+                      child: PieChart(
+                        PieChartData(
+                          sections: ExpenseCategory.values.map((category) {
+                            double amount = state.expenses
+                                .where((e) => e.category == category)
+                                .map((e) => e.amount)
+                                .reduce((a1, a2) => a1 + a2);
+                            return PieChartSectionData(
+                              value: amount / state.expenses.length,
+                              color: category.color,
+                              radius: 100,
+                              showTitle: false,
+                              badgeWidget: Icon(category.icon),
+                            );
+                          }).toList(),
+                          sectionsSpace: 2,
+                          centerSpaceRadius: 0,
+                        ),
+                        curve: Curves.easeInOut,
+                      ),
                       height: 200,
                     ),
                   ),
@@ -57,7 +79,7 @@ class ExpenseTrackerView extends StatelessWidget {
                     itemBuilder: (_, index) => Dismissible(
                       key: ValueKey(state.expenses[index].id),
                       background: Container(
-                        color: Theme.of(context).colorScheme.error,
+                        color: Theme.of(context).colorScheme.errorContainer,
                       ),
                       onDismissed: (_) {
                         context
@@ -81,6 +103,9 @@ class ExpenseTrackerView extends StatelessWidget {
                         child: ExpenseItem(state.expenses[index]),
                       ),
                     ),
+                  ),
+                  const SliverToBoxAdapter(
+                    child: SizedBox(height: 80),
                   ),
                 ],
               );

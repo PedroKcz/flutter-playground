@@ -7,9 +7,18 @@ extension ExpenseCategoryExtension on ExpenseCategory {
   IconData get icon {
     return switch (this) {
       ExpenseCategory.food => Icons.lunch_dining,
-      ExpenseCategory.leisure => Icons.flight_takeoff,
-      ExpenseCategory.travel => Icons.movie,
+      ExpenseCategory.leisure => Icons.movie,
+      ExpenseCategory.travel => Icons.flight_takeoff,
       ExpenseCategory.work => Icons.work,
+    };
+  }
+
+  Color get color {
+    return switch (this) {
+      ExpenseCategory.food => Colors.yellow.shade900,
+      ExpenseCategory.leisure => Colors.blueAccent.shade700,
+      ExpenseCategory.travel => Colors.green,
+      ExpenseCategory.work => Colors.deepPurple,
     };
   }
 }
