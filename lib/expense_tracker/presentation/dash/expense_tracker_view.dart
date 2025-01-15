@@ -24,54 +24,59 @@ class ExpenseTrackerView extends StatelessWidget {
             case ExpensesState():
               return CustomScrollView(
                 slivers: [
-                  SliverToBoxAdapter(
-                    child: SizedBox(
-                      child: PieChart(
-                        PieChartData(
-                          sections: ExpenseCategory.values.map((category) {
-                            double amount = state.expenses
-                                .where((e) => e.category == category)
-                                .map((e) => e.amount)
-                                .reduce((a1, a2) => a1 + a2);
-                            return PieChartSectionData(
-                              value: amount / state.expenses.length,
-                              color: category.color,
-                              radius: 100,
-                              showTitle: false,
-                              badgeWidget: Icon(category.icon),
-                            );
-                          }).toList(),
-                          sectionsSpace: 2,
-                          centerSpaceRadius: 0,
-                        ),
-                        curve: Curves.easeInOut,
-                      ),
-                      height: 200,
-                    ),
-                  ),
-                  state.expenses.isEmpty
-                      ? SliverToBoxAdapter(
-                          child: Column(
-                            spacing: 16,
-                            children: [
-                              const Text('No expenses found, try adding one'),
-                              OutlinedButton(
-                                onPressed: () =>
-                                    CreateExpenseModal().showAsModal(context),
-                                child: const Text('Add expense'),
+                  ...state.expenses.isEmpty
+                      ? [
+                          SliverToBoxAdapter(
+                            child: Column(
+                              spacing: 16,
+                              children: [
+                                const Text('No expenses found, try adding one'),
+                                OutlinedButton(
+                                  onPressed: () =>
+                                      CreateExpenseModal().showAsModal(context),
+                                  child: const Text('Add expense'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]
+                      : [
+                          SliverToBoxAdapter(
+                            child: SizedBox(
+                              child: PieChart(
+                                PieChartData(
+                                  sections:
+                                      ExpenseCategory.values.map((category) {
+                                    double amount = state.expenses
+                                        .where((e) => e.category == category)
+                                        .map((e) => e.amount)
+                                        .reduce((a1, a2) => a1 + a2);
+                                    return PieChartSectionData(
+                                      value: amount / state.expenses.length,
+                                      color: category.color,
+                                      radius: 100,
+                                      showTitle: false,
+                                      badgeWidget: Icon(category.icon),
+                                    );
+                                  }).toList(),
+                                  sectionsSpace: 2,
+                                  centerSpaceRadius: 0,
+                                ),
+                                curve: Curves.easeInOut,
                               ),
-                            ],
+                              height: 200,
+                            ),
                           ),
-                        )
-                      : const SliverAppBar(
-                          pinned: true,
-                          automaticallyImplyLeading: false,
-                          flexibleSpace: FlexibleSpaceBar(
-                            title: const Text('Expenses'),
-                            titlePadding: EdgeInsets.all(16),
-                            centerTitle: false,
+                          const SliverAppBar(
+                            pinned: true,
+                            automaticallyImplyLeading: false,
+                            flexibleSpace: FlexibleSpaceBar(
+                              title: const Text('Expenses'),
+                              titlePadding: EdgeInsets.all(16),
+                              centerTitle: false,
+                            ),
                           ),
-                        ),
+                        ],
                   SliverList.separated(
                     itemCount: state.expenses.length,
                     separatorBuilder: (context, index) =>

@@ -18,12 +18,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PageTransitionsTheme pageTransitionsTheme = const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.android: PredictiveBackPageTransitionsBuilder(),
+      },
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Hello World',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.tealAccent),
         useMaterial3: true,
+        pageTransitionsTheme: pageTransitionsTheme,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
@@ -31,6 +37,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
+        pageTransitionsTheme: pageTransitionsTheme,
       ),
       home: const HomePage(),
     );

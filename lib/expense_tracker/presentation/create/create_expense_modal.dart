@@ -17,6 +17,7 @@ class CreateExpenseModal extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
+      showDragHandle: true,
       builder: (_) => CreateExpenseModal(),
     );
   }
