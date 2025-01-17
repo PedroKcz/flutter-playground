@@ -52,6 +52,7 @@ class CreateExpenseModal extends StatelessWidget {
                         onChanged: (value) => context
                             .read<CreateExpenseBloc>()
                             .add(TitleUpdated(title: value)),
+                        textInputAction: TextInputAction.next,
                       ),
                     ),
                     DropdownButton(

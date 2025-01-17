@@ -8,6 +8,7 @@ import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_track
 import 'package:hello_world/expense_tracker/presentation/dash/bloc/expense_tracker_state.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/widget/expense_extension.dart';
 import 'package:hello_world/expense_tracker/presentation/dash/widget/expense_item.dart';
+import 'package:collection/collection.dart';
 
 class ExpenseTrackerView extends StatelessWidget {
   const ExpenseTrackerView({super.key});
@@ -50,7 +51,7 @@ class ExpenseTrackerView extends StatelessWidget {
                                     double amount = state.expenses
                                         .where((e) => e.category == category)
                                         .map((e) => e.amount)
-                                        .reduce((a1, a2) => a1 + a2);
+                                        .sum;
                                     return PieChartSectionData(
                                       value: amount / state.expenses.length,
                                       color: category.color,
