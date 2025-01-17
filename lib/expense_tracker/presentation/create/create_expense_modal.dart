@@ -18,7 +18,18 @@ class CreateExpenseModal extends StatelessWidget {
       context: context,
       useRootNavigator: true,
       showDragHandle: true,
-      builder: (_) => CreateExpenseModal(),
+      isScrollControlled: true,
+      builder: (ctx) => PopScope(
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(ctx).viewInsets.bottom + 16,
+            left: 16,
+            right: 16,
+            top: 16,
+          ),
+          child: CreateExpenseModal(),
+        ),
+      ),
     );
   }
 
@@ -33,9 +44,9 @@ class CreateExpenseModal extends StatelessWidget {
               Navigator.pop(context);
             });
           }
-          return Padding(
-            padding: const EdgeInsets.all(16),
+          return SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               spacing: 8,
               children: [
@@ -45,6 +56,7 @@ class CreateExpenseModal extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
+                        autofocus: true,
                         maxLength: 50,
                         decoration: const InputDecoration(
                           labelText: 'Title',
@@ -52,7 +64,6 @@ class CreateExpenseModal extends StatelessWidget {
                         onChanged: (value) => context
                             .read<CreateExpenseBloc>()
                             .add(TitleUpdated(title: value)),
-                        textInputAction: TextInputAction.next,
                       ),
                     ),
                     DropdownButton(
